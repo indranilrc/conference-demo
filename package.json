@@ -1,0 +1,19 @@
+{
+  "name": "conference-website",
+  "version": "1.0.0",
+  "description": "A complete, responsive conference website with CSV-based event management and dynamic filtering.",
+  "main": "agenda.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "playwright": "^1.58.2"
+  }
+}
