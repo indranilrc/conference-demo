@@ -1,14 +1,17 @@
 // Navigation Component
 
 function renderNavigation(currentPage) {
+    // Detect base path for GitHub Pages (works for both root and subdirectory deployments)
+    const basePath = window.location.pathname.includes('/conference-demo/') ? '/conference-demo' : '';
+
     const navItems = [
-        { id: 'home', label: 'Home', url: '/index.html' },
-        { id: 'dates', label: 'Key Dates', url: '/key-dates.html' },
-        { id: 'events-all', label: 'All Events', url: '/events/all.html' },
-        { id: 'events-panels', label: 'Panels', url: '/events/panels.html' },
-        { id: 'events-keynotes', label: 'Keynotes', url: '/events/keynotes.html' },
-        { id: 'events-workshops', label: 'Workshops', url: '/events/workshops.html' },
-        { id: 'multitrack', label: 'Multi-Track View', url: '/multitrack.html' }
+        { id: 'home', label: 'Home', url: `${basePath}/index.html` },
+        { id: 'dates', label: 'Key Dates', url: `${basePath}/key-dates.html` },
+        { id: 'events-all', label: 'All Events', url: `${basePath}/events/all.html` },
+        { id: 'events-panels', label: 'Panels', url: `${basePath}/events/panels.html` },
+        { id: 'events-keynotes', label: 'Keynotes', url: `${basePath}/events/keynotes.html` },
+        { id: 'events-workshops', label: 'Workshops', url: `${basePath}/events/workshops.html` },
+        { id: 'multitrack', label: 'Multi-Track View', url: `${basePath}/multitrack.html` }
     ];
 
     let html = '<nav class="main-nav"><div class="nav-container"><ul class="nav-menu">';
