@@ -54,19 +54,42 @@ body {
     padding: 80px 20px;
 }
 
+.hero-with-image {
+    background-image: url('images/Uptown_Charlotte_2018.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.hero-overlay {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 60px 40px;
+    border-radius: 10px;
+    max-width: 900px;
+    width: 90%;
+}
+
 .hero h1 {
     font-size: 3rem;
     margin: 0 0 10px 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 .hero .subtitle {
     font-size: 1.5rem;
     margin: 10px 0;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
 
 .hero .details {
     font-size: 1.2rem;
     margin-top: 20px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
 
 .section {
@@ -281,6 +304,14 @@ h1 {
 
     .hero .details {
         font-size: 1rem;
+    }
+
+    .hero-with-image {
+        min-height: 400px;
+    }
+
+    .hero-overlay {
+        padding: 40px 20px;
     }
 
     .nav-menu {
