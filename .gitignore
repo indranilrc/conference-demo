@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+
+# Python test files
+*.py
+*.pyc
+__pycache__/
+
+# Jupyter notebooks
+*.ipynb
+
+# Screenshots (optional - comment out if you want to include them)
+screenshots/
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Build artifacts
+*.log

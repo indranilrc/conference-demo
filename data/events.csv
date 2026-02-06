@@ -1,0 +1,16 @@
+id,type,title,abstract,date,startTime,endTime,track,speakers,moderators,location,room
+1,panel,Future of Energy Systems,Explore the evolving energy landscape and sustainable strategies for the next decade.,2023-10-01,09:00,10:00,A,Dr. Jane Doe|Dr. John Smith,Prof. Alice Johnson,Main Conference Hall,Room 101
+2,keynote,Opening Keynote: Innovation in Energy,A comprehensive overview of breakthrough technologies transforming the energy sector.,2023-10-01,10:30,11:30,,Dr. Emily Chen,,Main Conference Hall,Auditorium
+3,workshop,Hands-on: Renewable Energy Modeling,Interactive workshop on modeling renewable energy systems using modern tools.,2023-10-01,13:00,15:00,,Prof. Michael Brown|Dr. Sarah Davis,,Workshop Area,Lab 1
+4,panel,Subsurface Innovations and Challenges,Innovations in reservoir characterization and drilling technology.,2023-10-01,15:30,17:00,B,Dr. Robert Wilson|Dr. Lisa Anderson,Dr. James Martinez,Main Conference Hall,Room 102
+5,panel,Carbon Capture Technologies,Latest developments in carbon capture and storage solutions.,2023-10-02,09:00,10:30,A,Dr. Maria Garcia|Dr. David Lee,Prof. Karen White,Main Conference Hall,Room 101
+6,panel,Hydrogen Economy and Infrastructure,Exploring the role of hydrogen in the future energy mix and required infrastructure developments.,2023-10-02,09:00,10:30,B,Dr. Thomas Anderson|Dr. Susan Miller,Dr. Patricia Clark,Main Conference Hall,Room 102
+7,keynote,The Path to Net Zero,Strategic approaches to achieving net-zero emissions in the energy industry.,2023-10-02,11:00,12:00,,Prof. Thomas Anderson,,Main Conference Hall,Auditorium
+8,tutorial,Introduction to Energy Economics,Fundamentals of energy market analysis and economic modeling.,2023-10-02,13:30,15:30,A,Dr. Jennifer Taylor,,Workshop Area,Room 201
+9,workshop,Advanced Data Analytics for Energy,Practical applications of data science in energy sector decision-making.,2023-10-02,13:30,15:30,B,Dr. Richard Thompson|Dr. Jessica Martin,,Workshop Area,Lab 2
+10,panel,Digital Transformation in Energy,How AI and machine learning are revolutionizing energy operations.,2023-10-02,16:00,17:30,A,Dr. Christopher Moore|Dr. Patricia Harris,Prof. Daniel Clark,Main Conference Hall,Room 101
+11,panel,Energy Policy and Regulation,Navigating the changing regulatory landscape for renewable energy and emissions.,2023-10-02,16:00,17:30,B,Prof. Margaret Stevens|Dr. William Rodriguez,Dr. Susan Chen,Main Conference Hall,Room 102
+12,keynote,Energy Innovation Showcase,Presentations from leading energy technology startups and research projects.,2023-10-03,09:00,10:30,,Dr. Jennifer Lopez|Dr. Michael Chang,,Main Conference Hall,Auditorium
+13,panel,Offshore Wind Development,Technical and economic challenges in offshore wind farm development and operation.,2023-10-03,11:00,12:30,A,Dr. Elizabeth Turner|Dr. James Wilson,Prof. Mary Johnson,Main Conference Hall,Room 101
+14,panel,Battery Storage Systems,Latest advances in grid-scale battery storage technologies and deployment strategies.,2023-10-03,11:00,12:30,B,Dr. Robert Chen|Dr. Amanda Davis,Dr. Kevin Martinez,Main Conference Hall,Room 102
+15,keynote,Closing Remarks: Energy 2030,Vision for the future of global energy systems and collaboration.,2023-10-03,14:00,15:00,,Dr. William Rodriguez,,Main Conference Hall,Auditorium

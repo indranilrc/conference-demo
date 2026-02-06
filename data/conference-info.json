@@ -1,0 +1,25 @@
+{
+  "name": "18th Annual Conference of the Prognostics and Health Management Society",
+  "dates": "October 1-3, 2023",
+  "location": "San Francisco, California",
+  "venue": "Downtown Convention Center",
+  "about": "We will bring together the global community of PHM experts from industry, academia, and government in diverse application areas, including energy, aerospace, transportation, automotive, human health & performance, smart manufacturing, and industry AI.\n\nHere's some of what we have planned for 2026:\n\n<ul>\n<li>A choice of 2 dedicated Short Courses focused on fundamental PHM concepts and techniques, as well as data analytics, prior to the conference (separate registration required)</li>\n<li>Keynote and/or Luminary Speakers</li>\n<li>Parallel Tracks of Technical Paper Sessions</li>\n<li>Free Tutorial Sessions</li>\n<li>Panel Sessions</li>\n<li>Technical Demonstrations and Product Showcases from leading companies and research institutions</li>\n<li>A Data Analysis Challenge (with prizes!) held prior to the conference. The Data Analysis Challenge is open to everyone, with winning teams presenting their approaches in an Invited Paper Session</li>\n<li>Student Posters</li>\n<li>Networking, diversity outreach, and social events, including our annual Banquet dinner.</li>\n</ul>\n\nWe hope that you will be able to join us this year and look forward to seeing you in the fall!",
+  "callForPapers": "We invite submissions of original research papers, case studies, and technical presentations on topics related to renewable energy, energy economics, carbon capture, digital transformation in energy, and sustainable energy policy. Submission deadline: June 15, 2023.",
+  "chairs": [
+    {
+      "name": "Rhonda Walthall",
+      "affiliation": "Collins Aerospace",
+      "role": "General Chair"
+    },
+    {
+      "name": "Dave Larsen",
+      "affiliation": "Collins Aerospace",
+      "role": "General Chair"
+    },
+    {
+      "name": "Scott Clements",
+      "affiliation": "Lockheed Martin",
+      "role": "General Chair"
+    }
+  ]
+}

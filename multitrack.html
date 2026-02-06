@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multi-Track Schedule - Conference Agenda</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Override agenda-container max-width for multitrack page */
+        .agenda-container {
+            max-width: 1600px;
+        }
+
+        .schedule-header {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .day-tabs {
+            display: flex;
+            gap: 0;
+            border-bottom: 2px solid #ddd;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .day-tab {
+            background: none;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .day-tab:hover {
+            color: #2c3e50;
+        }
+
+        .day-tab.active {
+            color: #2c3e50;
+            border-bottom-color: #7a9e7e;
+            font-weight: 600;
+        }
+
+        .filter-section {
+            background: white;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .search-box {
+            margin-bottom: 15px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #7a9e7e;
+        }
+
+        .search-input::placeholder {
+            color: #999;
+        }
+
+        .filter-label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-right: 15px;
+            font-size: 0.95rem;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-btn {
+            background: #f5f5f5;
+            border: 2px solid #ddd;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            color: #666;
+        }
+
+        .filter-btn:hover {
+            background: #e0e0e0;
+            border-color: #bbb;
+        }
+
+        .filter-btn.active {
+            color: white;
+        }
+
+        .filter-btn.all.active {
+            background: #3a3a3a;
+            border-color: #3a3a3a;
+        }
+
+        .filter-btn.panel.active {
+            background: #7a9e7e;
+            border-color: #7a9e7e;
+        }
+
+        .filter-btn.keynote.active {
+            background: #6b9e9a;
+            border-color: #6b9e9a;
+        }
+
+        .filter-btn.workshop.active {
+            background: #9bb99f;
+            border-color: #9bb99f;
+        }
+
+        .filter-btn.tutorial.active {
+            background: #8b9e6f;
+            border-color: #8b9e6f;
+        }
+
+        .filter-btn.session.active {
+            background: #7a8e82;
+            border-color: #7a8e82;
+        }
+
+        .schedule-grid {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .time-row {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .time-row:last-child {
+            border-bottom: none;
+        }
+
+        .time-cell {
+            background: #5a7e5e;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding: 20px;
+            min-height: 120px;
+        }
+
+        .sessions-cell {
+            padding: 15px;
+            background: #f5f5f5;
+        }
+
+        .sessions-grid {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 15px;
+        }
+
+        .sessions-grid .session-card {
+            flex: 1 1 0;
+            min-width: 0;
+        }
+
+        .session-card {
+            background: #d9d9d9;
+            border-radius: 6px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-left: 4px solid #7a9e7e;
+        }
+
+        .session-card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+        }
+
+        .session-card.plenary {
+            flex-basis: 100%;
+            background: #d9d9d9;
+        }
+
+        .session-card.keynote {
+            background: #d9d9d9;
+            border-left-color: #6b9e9a;
+        }
+
+        .session-id {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: #5a7e5e;
+        }
+
+        .session-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .session-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            color: #555;
+            flex-wrap: wrap;
+        }
+
+        .session-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .session-description {
+            font-size: 0.9rem;
+            color: #444;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .session-people {
+            font-size: 0.85rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .session-people strong {
+            color: #2c3e50;
+        }
+
+        .session-people ul {
+            margin: 5px 0;
+            padding-left: 20px;
+        }
+
+        .session-people li {
+            margin: 3px 0;
+        }
+
+        .session-type-badge {
+            display: inline-block;
+            background: #7a9e7e;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .session-type-badge.keynote {
+            background: #6b9e9a;
+        }
+
+        .session-type-badge.workshop {
+            background: #9bb99f;
+        }
+
+        .session-type-badge.tutorial {
+            background: #8b9e6f;
+        }
+
+        .session-type-badge.session {
+            background: #7a8e82;
+        }
+
+        .no-sessions {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        @media screen and (max-width: 768px) {
+            .time-row {
+                grid-template-columns: 80px 1fr;
+            }
+
+            .time-cell {
+                font-size: 1.2rem;
+                padding: 15px 10px;
+                min-height: 80px;
+            }
+
+            .sessions-grid {
+                flex-direction: column;
+            }
+
+            .day-tab {
+                padding: 10px 15px;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .time-row {
+                grid-template-columns: 60px 1fr;
+            }
+
+            .time-cell {
+                font-size: 1rem;
+                padding: 10px 5px;
+            }
+
+            .session-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main-nav"></div>
+
+    <div class="agenda-container">
+        <h1>Conference Schedule</h1>
+
+        <div class="day-tabs" id="dayTabs">
+            <!-- Will be populated by JavaScript -->
+        </div>
+
+        <div class="filter-section">
+            <div class="search-box">
+                <input type="text"
+                       class="search-input"
+                       id="searchInput"
+                       placeholder="Search events by title, description, speaker, or location...">
+            </div>
+            <div class="filter-buttons">
+                <span class="filter-label">Filter by type:</span>
+                <button class="filter-btn all active" data-type="all">All</button>
+                <button class="filter-btn keynote" data-type="keynote">Keynotes</button>
+                <button class="filter-btn panel" data-type="panel">Panels</button>
+                <button class="filter-btn workshop" data-type="workshop">Workshops</button>
+                <button class="filter-btn tutorial" data-type="tutorial">Tutorials</button>
+                <button class="filter-btn session" data-type="session">Sessions</button>
+            </div>
+        </div>
+
+        <div id="scheduleContent">
+            <p style="text-align: center; padding: 40px;">Loading schedule...</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 International Energy Conference. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const currentPageId = 'multitrack';
+    </script>
+    <script src="lib/papaparse.min.js"></script>
+    <script src="js/csv-parser.js"></script>
+    <script src="js/navigation.js"></script>
+    <script>
+        let allEvents = [];
+        let currentDay = null;
+        let selectedTypes = new Set(['all']);
+        let searchQuery = '';
+
+        loadEvents('data/whova_agenda.csv').then(events => {
+            allEvents = events;
+
+            // Get unique dates
+            const dates = getUniqueDates(events);
+
+            // Create day tabs
+            const dayTabs = document.getElementById('dayTabs');
+            dayTabs.innerHTML = dates.map((date, index) => {
+                const formattedDate = formatDate(date);
+                const isActive = index === 0 ? 'active' : '';
+                return `<button class="day-tab ${isActive}" data-date="${date}">${formattedDate}</button>`;
+            }).join('');
+
+            // Add click handlers for day tabs
+            document.querySelectorAll('.day-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    const selectedDate = this.getAttribute('data-date');
+                    currentDay = selectedDate;
+                    renderSchedule(currentDay, selectedTypes, searchQuery);
+                });
+            });
+
+            // Add click handlers for filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const type = this.getAttribute('data-type');
+
+                    if (type === 'all') {
+                        // If "All" is clicked, clear other selections and select only "All"
+                        selectedTypes.clear();
+                        selectedTypes.add('all');
+                        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                    } else {
+                        // Remove "All" if it's selected
+                        selectedTypes.delete('all');
+                        document.querySelector('.filter-btn.all').classList.remove('active');
+
+                        // Toggle the clicked type
+                        if (selectedTypes.has(type)) {
+                            selectedTypes.delete(type);
+                            this.classList.remove('active');
+                        } else {
+                            selectedTypes.add(type);
+                            this.classList.add('active');
+                        }
+
+                        // If no types are selected, default back to "All"
+                        if (selectedTypes.size === 0) {
+                            selectedTypes.add('all');
+                            document.querySelector('.filter-btn.all').classList.add('active');
+                        }
+                    }
+
+                    renderSchedule(currentDay, selectedTypes, searchQuery);
+                });
+            });
+
+            // Add search input handler
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', function(e) {
+                searchQuery = e.target.value.toLowerCase().trim();
+                renderSchedule(currentDay, selectedTypes, searchQuery);
+            });
+
+            // Render first day by default
+            if (dates.length > 0) {
+                currentDay = dates[0];
+                renderSchedule(currentDay, selectedTypes, searchQuery);
+            }
+        }).catch(error => {
+            console.error('Error loading events:', error);
+            document.getElementById('scheduleContent').innerHTML =
+                '<p style="text-align: center; color: red; padding: 40px;">Error loading schedule. Please try again.</p>';
+        });
+
+        function renderSchedule(date, typeFilters = new Set(['all']), search = '') {
+            const scheduleContent = document.getElementById('scheduleContent');
+
+            // Filter events for the selected day
+            let dayEvents = allEvents.filter(e => e.date === date);
+
+            // Apply type filter
+            if (!typeFilters.has('all')) {
+                dayEvents = dayEvents.filter(e => typeFilters.has(e.type));
+            }
+
+            // Apply search filter
+            if (search) {
+                dayEvents = dayEvents.filter(e => {
+                    const searchStr = search.toLowerCase();
+                    return (
+                        e.title.toLowerCase().includes(searchStr) ||
+                        (e.abstract && e.abstract.toLowerCase().includes(searchStr)) ||
+                        (e.speakers && e.speakers.some(s => s.toLowerCase().includes(searchStr))) ||
+                        (e.moderators && e.moderators.some(m => m.toLowerCase().includes(searchStr))) ||
+                        (e.location && e.location.toLowerCase().includes(searchStr)) ||
+                        (e.room && e.room.toLowerCase().includes(searchStr))
+                    );
+                });
+            }
+
+            if (dayEvents.length === 0) {
+                let message = 'No sessions scheduled for this day.';
+                if (search || !typeFilters.has('all')) {
+                    message = 'No sessions match your search or filter criteria.';
+                }
+                scheduleContent.innerHTML = `<div class="no-sessions">${message}</div>`;
+                return;
+            }
+
+            // Group by time
+            const timeSlots = {};
+            dayEvents.forEach(event => {
+                const timeKey = `${event.startTime}-${event.endTime}`;
+                if (!timeSlots[timeKey]) {
+                    timeSlots[timeKey] = {
+                        startTime: event.startTime,
+                        endTime: event.endTime,
+                        events: []
+                    };
+                }
+                timeSlots[timeKey].events.push(event);
+            });
+
+            // Sort time slots
+            const sortedSlots = Object.values(timeSlots).sort((a, b) => {
+                return a.startTime.localeCompare(b.startTime);
+            });
+
+            // Build HTML
+            const scheduleGrid = document.createElement('div');
+            scheduleGrid.className = 'schedule-grid';
+
+            sortedSlots.forEach(slot => {
+                const timeRow = document.createElement('div');
+                timeRow.className = 'time-row';
+
+                // Format time for display (e.g., "0800" from "08:00")
+                const timeDisplay = slot.startTime.replace(':', '');
+
+                // Time cell
+                const timeCell = document.createElement('div');
+                timeCell.className = 'time-cell';
+                timeCell.textContent = timeDisplay;
+
+                // Sessions cell
+                const sessionsCell = document.createElement('div');
+                sessionsCell.className = 'sessions-cell';
+
+                const sessionsGrid = document.createElement('div');
+                sessionsGrid.className = 'sessions-grid';
+
+                // Determine if this is a plenary session (single session in time slot)
+                const isPlenary = slot.events.length === 1 &&
+                    (slot.events[0].type === 'keynote' || !slot.events[0].track);
+
+                slot.events.forEach(event => {
+                    const card = createSessionCard(event, isPlenary);
+                    sessionsGrid.appendChild(card);
+                });
+
+                sessionsCell.appendChild(sessionsGrid);
+
+                timeRow.appendChild(timeCell);
+                timeRow.appendChild(sessionsCell);
+                scheduleGrid.appendChild(timeRow);
+            });
+
+            scheduleContent.innerHTML = '';
+            scheduleContent.appendChild(scheduleGrid);
+        }
+
+        function createSessionCard(event, isPlenary) {
+            const card = document.createElement('div');
+            card.className = `session-card ${event.type}`;
+            if (isPlenary) {
+                card.classList.add('plenary');
+            }
+
+            // Session ID (using event id)
+            const sessionId = `${event.type.substring(0, 2).toUpperCase()}${String(event.id).padStart(2, '0')}`;
+
+            // Build location string
+            let locationStr = '';
+            if (event.room) {
+                locationStr = `📍 ${event.room}`;
+            } else if (event.location) {
+                locationStr = `📍 ${event.location}`;
+            }
+
+            // Build time string
+            const timeStr = `${formatTime(event.startTime)} - ${formatTime(event.endTime)}`;
+
+            // Build speakers list
+            let speakersHtml = '';
+            if (event.speakers && event.speakers.length > 0) {
+                if (event.type === 'panel') {
+                    speakersHtml = `
+                        <div style="margin-top: 10px;">
+                            <strong>Panelists:</strong>
+                            <ul style="margin: 5px 0; padding-left: 20px;">
+                                ${event.speakers.map(s => `<li>${s}</li>`).join('')}
+                            </ul>
+                        </div>
+                    `;
+                } else {
+                    speakersHtml = `<div style="margin-top: 8px;"><strong>Speaker:</strong> ${event.speakers.join(', ')}</div>`;
+                }
+            }
+
+            // Build moderator info
+            let moderatorHtml = '';
+            if (event.moderators && event.moderators.length > 0) {
+                moderatorHtml = `<div style="margin-top: 5px;"><strong>Moderator:</strong> ${event.moderators.join(', ')}</div>`;
+            }
+
+            card.innerHTML = `
+                <div class="session-type-badge ${event.type}">${event.type}</div>
+                <div class="session-id">${sessionId} ${event.title}</div>
+                <div class="session-meta">
+                    ${locationStr ? `<div class="session-meta-item">${locationStr}</div>` : ''}
+                    <div class="session-meta-item">🕒 ${timeStr}</div>
+                </div>
+                ${event.abstract ? `<div class="session-description">${event.abstract}</div>` : ''}
+                <div class="session-people">
+                    ${speakersHtml}
+                    ${moderatorHtml}
+                </div>
+            `;
+
+            return card;
+        }
+    </script>
+</body>
+
+</html>

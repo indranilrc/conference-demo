@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Agenda</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="agenda-container">
+        <h1>Technical Program</h1>
+        <div class="filters">
+            <label for="dayFilter">Filter by Day:</label>
+            <select id="dayFilter">
+                <option value="">All Days</option>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+            </select>
+        </div>
+        <div id="agendaList" class="agenda-list"></div>
+    </div>
+    <script src="agenda.js"></script>
+</body>
+
+</html>

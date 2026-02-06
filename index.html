@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>International Energy Conference 2023</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="main-nav"></div>
+
+    <div class="hero">
+        <h1 id="conf-name">International Energy Conference 2023</h1>
+        <p class="subtitle" id="conf-dates">October 1-3, 2023</p>
+        <p class="details" id="conf-location">San Francisco, California</p>
+        <p class="details" id="conf-venue">Downtown Convention Center</p>
+        <div style="margin-top: 30px;">
+            <a href="events/all.html" class="cta-button">View Schedule</a>
+            <a href="key-dates.html" class="cta-button">Important Dates</a>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Call for Papers</h2>
+        <p id="cfp-content">We invite submissions of original research papers, case studies, and technical presentations on topics related to renewable energy, energy economics, carbon capture, digital transformation in energy, and sustainable energy policy. Submission deadline: June 15, 2023.</p>
+    </div>
+
+    <div class="section">
+        <h2>About the Conference</h2>
+        <p id="about-content">The International Energy Conference brings together leading researchers, industry professionals, and policymakers to discuss the latest innovations and challenges in the energy sector. Join us for three days of insightful panels, workshops, and networking opportunities focused on sustainable energy solutions and technological advancements.</p>
+    </div>
+
+    <div class="section">
+        <h2>Conference Chairs</h2>
+        <div id="chairs-container" class="chairs-grid">
+            <!-- Will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Venue</h2>
+        <p><strong id="venue-name">Downtown Convention Center</strong></p>
+        <p id="venue-location">San Francisco, California</p>
+        <p>Our state-of-the-art conference center provides modern facilities for presentations, workshops, and networking. Easily accessible by public transportation with ample parking available.</p>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 International Energy Conference. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const currentPageId = 'home';
+    </script>
+    <script src="js/navigation.js"></script>
+    <script>
+        // Load conference information
+        fetch('data/conference-info.json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('conf-name').textContent = data.name;
+                document.getElementById('conf-dates').textContent = data.dates;
+                document.getElementById('conf-location').textContent = data.location;
+                document.getElementById('conf-venue').textContent = data.venue;
+                document.getElementById('cfp-content').textContent = data.callForPapers;
+                document.getElementById('about-content').innerHTML = data.about;
+                document.getElementById('venue-name').textContent = data.venue;
+                document.getElementById('venue-location').textContent = data.location;
+
+                // Render conference chairs
+                const chairsContainer = document.getElementById('chairs-container');
+                data.chairs.forEach(chair => {
+                    const chairCard = document.createElement('div');
+                    chairCard.className = 'chair-card';
+                    chairCard.innerHTML = `
+                        <h3>${chair.name}</h3>
+                        <p>${chair.affiliation}</p>
+                        <p class="chair-role">${chair.role}</p>
+                    `;
+                    chairsContainer.appendChild(chairCard);
+                });
+
+                // Update page title
+                document.title = data.name;
+            })
+            .catch(error => {
+                console.error('Error loading conference info:', error);
+            });
+    </script>
+</body>
+</html>

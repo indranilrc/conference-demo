@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key Dates - Conference Timeline</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .timeline {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .timeline-item {
+            background: white;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .timeline-item:hover {
+            transform: translateX(5px);
+        }
+
+        .timeline-date {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .timeline-event {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .timeline-description {
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        .past {
+            opacity: 0.6;
+            border-left-color: #ccc;
+        }
+
+        .past .timeline-date {
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div id="main-nav"></div>
+
+    <div class="agenda-container">
+        <h1 style="text-align: center;">Important Dates</h1>
+        <p style="text-align: center; color: #666; margin-bottom: 30px;">
+            Mark your calendar for these key conference milestones.
+        </p>
+
+        <div class="timeline">
+            <div class="timeline-item past">
+                <div class="timeline-date">March 1, 2023</div>
+                <div class="timeline-event">Call for Papers Opens</div>
+                <div class="timeline-description">Submission portal opens for abstracts and full papers.</div>
+            </div>
+
+            <div class="timeline-item past">
+                <div class="timeline-date">June 15, 2023</div>
+                <div class="timeline-event">Submission Deadline</div>
+                <div class="timeline-description">Final deadline for all paper and abstract submissions.</div>
+            </div>
+
+            <div class="timeline-item past">
+                <div class="timeline-date">July 15, 2023</div>
+                <div class="timeline-event">Author Notification</div>
+                <div class="timeline-description">Authors will be notified of acceptance decisions.</div>
+            </div>
+
+            <div class="timeline-item past">
+                <div class="timeline-date">August 1, 2023</div>
+                <div class="timeline-event">Early Bird Registration Deadline</div>
+                <div class="timeline-description">Register before this date to receive discounted rates.</div>
+            </div>
+
+            <div class="timeline-item past">
+                <div class="timeline-date">August 15, 2023</div>
+                <div class="timeline-event">Camera-Ready Papers Due</div>
+                <div class="timeline-description">Final versions of accepted papers must be submitted.</div>
+            </div>
+
+            <div class="timeline-item past">
+                <div class="timeline-date">September 15, 2023</div>
+                <div class="timeline-event">Regular Registration Deadline</div>
+                <div class="timeline-description">Last day for standard registration rates.</div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">October 1-3, 2023</div>
+                <div class="timeline-event">Conference Dates</div>
+                <div class="timeline-description">Three days of panels, workshops, keynotes, and networking.</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 International Energy Conference. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const currentPageId = 'dates';
+    </script>
+    <script src="js/navigation.js"></script>
+</body>
+</html>

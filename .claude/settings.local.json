@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c \"\nimport pandas as pd\n\n# Read the Excel file\ndf = pd.read_excel\\(''data/Whova_agenda_import_2025.xlsx''\\)\n\n# Save as CSV\ndf.to_csv\\(''data/Whova_agenda_import_2025.csv'', index=False\\)\n\nprint\\(''Successfully converted Excel to CSV!''\\)\nprint\\(f''Total rows: {len\\(df\\)}''\\)\nprint\\(f''Total columns: {len\\(df.columns\\)}''\\)\nprint\\(''\\\\nColumn names:''\\)\nfor col in df.columns:\n    print\\(f''  - {col}''\\)\nprint\\(''\\\\nFirst row sample:''\\)\nprint\\(df.iloc[0]\\)\n\")",
+      "Bash(python3 -c \"\nimport pandas as pd\n\n# Read the CSV we created and examine it\ndf_raw = pd.read_csv\\(''data/Whova_agenda_import_2025.csv''\\)\n\n# The actual headers are at row index 31 \\(line 32\\)\n# Let''s read from row 32 \\(index 31\\) onwards\ndf_raw_from_start = pd.read_csv\\(''data/Whova_agenda_import_2025.csv'', skiprows=31\\)\n\n# The first row should have proper column names now\nprint\\(''Columns detected:''\\)\nfor col in df_raw_from_start.columns:\n    print\\(f''  - {col}''\\)\n\n# Remove empty rows\ndf_clean = df_raw_from_start.dropna\\(how=''all''\\)\n\n# Save cleaned version\ndf_clean.to_csv\\(''data/whova_agenda.csv'', index=False\\)\n\nprint\\(f''\\\\nTotal events saved: {len\\(df_clean\\)}''\\)\nprint\\(''\\\\nFirst few events:''\\)\nprint\\(df_clean.head\\(3\\).to_string\\(\\)\\)\n\")",
+      "Bash(find events -name \"*.html\" -type f -exec sed -i '' 's|../data/events\\\\.csv|../data/whova_agenda.csv|g' {} +)",
+      "Bash(playwright install chromium)",
+      "Bash(python3 test_website.py)"
+    ]
+  }
+}

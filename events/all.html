@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Events - Conference Schedule</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div id="main-nav"></div>
+
+    <div class="agenda-container">
+        <h1>All Conference Events</h1>
+
+        <div id="filter-container"></div>
+
+        <div class="agenda-list" id="agendaList">
+            <p style="text-align: center;">Loading events...</p>
+        </div>
+    </div>
+
+    <script>
+        const currentPageId = 'events-all';
+    </script>
+    <script src="../lib/papaparse.min.js"></script>
+    <script src="../js/csv-parser.js"></script>
+    <script src="../js/event-renderer.js"></script>
+    <script src="../js/navigation.js"></script>
+    <script>
+        let allEvents = [];
+        let currentFilters = { type: 'all', date: '' };
+
+        // Load and render events
+        loadEvents('../data/whova_agenda.csv').then(events => {
+            allEvents = events;
+
+            // Render filters
+            const filterContainer = document.getElementById('filter-container');
+            filterContainer.innerHTML = renderFilters(events, { showTypeFilter: true, showDateFilter: true });
+
+            // Attach filter event listeners
+            const typeFilter = document.getElementById('typeFilter');
+            const dateFilter = document.getElementById('dateFilter');
+
+            if (typeFilter) {
+                typeFilter.addEventListener('change', (e) => {
+                    currentFilters.type = e.target.value;
+                    applyFilters();
+                });
+            }
+
+            if (dateFilter) {
+                dateFilter.addEventListener('change', (e) => {
+                    currentFilters.date = e.target.value;
+                    applyFilters();
+                });
+            }
+
+            // Initial render
+            renderEventList(events, 'agendaList');
+        }).catch(error => {
+            console.error('Error loading events:', error);
+            document.getElementById('agendaList').innerHTML = '<p style="text-align: center; color: red;">Error loading events. Please try again.</p>';
+        });
+
+        function applyFilters() {
+            const filtered = filterEvents(allEvents, currentFilters);
+            renderEventList(filtered, 'agendaList');
+        }
+    </script>
+</body>
+</html>

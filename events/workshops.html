@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshops - Conference Schedule</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div id="main-nav"></div>
+
+    <div class="agenda-container">
+        <h1>Workshops & Tutorials</h1>
+        <p style="text-align: center; color: #666; margin-bottom: 30px;">
+            Interactive hands-on sessions for practical learning and skill development.
+        </p>
+
+        <div id="filter-container"></div>
+
+        <div class="agenda-list" id="agendaList">
+            <p style="text-align: center;">Loading workshops...</p>
+        </div>
+    </div>
+
+    <script>
+        const currentPageId = 'events-workshops';
+    </script>
+    <script src="../lib/papaparse.min.js"></script>
+    <script src="../js/csv-parser.js"></script>
+    <script src="../js/event-renderer.js"></script>
+    <script src="../js/navigation.js"></script>
+    <script>
+        let allEvents = [];
+        let currentFilters = { type: '', date: '' };
+
+        // Load and render events
+        loadEvents('../data/whova_agenda.csv').then(events => {
+            allEvents = events;
+
+            // Filter to workshops and tutorials
+            const workshops = events.filter(e => e.type === 'workshop' || e.type === 'tutorial');
+
+            // Render date filter only
+            const filterContainer = document.getElementById('filter-container');
+            filterContainer.innerHTML = renderFilters(workshops, { showTypeFilter: false, showDateFilter: true });
+
+            // Attach filter event listener
+            const dateFilter = document.getElementById('dateFilter');
+            if (dateFilter) {
+                dateFilter.addEventListener('change', (e) => {
+                    currentFilters.date = e.target.value;
+                    applyFilters();
+                });
+            }
+
+            // Initial render
+            renderEventList(workshops, 'agendaList');
+        }).catch(error => {
+            console.error('Error loading events:', error);
+            document.getElementById('agendaList').innerHTML = '<p style="text-align: center; color: red;">Error loading events. Please try again.</p>';
+        });
+
+        function applyFilters() {
+            // Filter workshops and tutorials by date
+            let filtered = allEvents.filter(e => e.type === 'workshop' || e.type === 'tutorial');
+            if (currentFilters.date) {
+                filtered = filtered.filter(e => e.date === currentFilters.date);
+            }
+            renderEventList(filtered, 'agendaList');
+        }
+    </script>
+</body>
+</html>
